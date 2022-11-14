@@ -1,4 +1,10 @@
+///TODO:
+// Hacer el panel para mostrar la playslist
+// Hacer que la barra se llene conforme sigue la cancion
 
+//Opcional
+// Al dar clic en la barra hacer que la cancion salte a cierto segundo correspondiente
+// hacerlo mas bonito
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
