@@ -367,8 +367,9 @@ switch (c)
      public void resetAudioStream(String _filePath) throws UnsupportedAudioFileException, IOException,
      LineUnavailableException 
     {
+        filePath = _filePath;
         audioInputStream = 
-        AudioSystem.getAudioInputStream(new File(_filePath).getAbsoluteFile());
+        AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
   
 // create clip reference
 clip = AudioSystem.getClip();
@@ -378,7 +379,7 @@ clip = AudioSystem.getClip();
 clip.open(audioInputStream);
 status = "play";
 clip.start();
-        jLabel1.setText(_filePath);
+        jLabel1.setText(filePath);
     }
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;

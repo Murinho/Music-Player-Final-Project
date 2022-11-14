@@ -1,14 +1,9 @@
-import java.util.*;
-import javax.sound.sampled.*;
 import java.io.IOException;
-import java.io.File;
-//import java.swing.JOptionPane;
-import java.io.InputStream;
-//import sun.audio.AudioPlayer;
-//import sun.audio.AudioStream;
-import java.applet.*;
-import java.awt.*;
-import javax.swing.*;
+import java.util.Scanner;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JFrame;
 public class Main{
 
     public static void menu(){
@@ -20,8 +15,6 @@ public class Main{
         System.out.print("Pulsa 6 para reproducir la cancion\n");
     }
     public static void main(String [] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
-        Scanner sc = new Scanner(System.in);
-        List list = new List();
         JFrame musica = new Musica();
         // verything will be inside musica 
         musica.pack();
