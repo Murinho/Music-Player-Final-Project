@@ -33,9 +33,8 @@ public class Musica extends javax.swing.JFrame {
         throws UnsupportedAudioFileException,
         IOException, LineUnavailableException
     {
-        initComponents();
-        // create AudioInputStream object
-        audioInputStream = 
+                // create AudioInputStream object
+                audioInputStream = 
                 AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
           
         // create clip reference
@@ -43,9 +42,11 @@ public class Musica extends javax.swing.JFrame {
           
         // open audioInputStream to the clip
         clip.open(audioInputStream);
-          
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
         status = "play";
+        clip.start();
+        
+        initComponents();
+
     }
 
     /**
@@ -318,7 +319,7 @@ switch (c)
         audioInputStream = AudioSystem.getAudioInputStream(
         new File(filePath).getAbsoluteFile());
         clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.start();
     }
     // Method to reset audio stream with specific filePath
      public void resetAudioStream(String _filePath) throws UnsupportedAudioFileException, IOException,
@@ -327,7 +328,7 @@ switch (c)
         audioInputStream = AudioSystem.getAudioInputStream(
         new File(_filePath).getAbsoluteFile());
         clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.start();
     }
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
