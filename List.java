@@ -5,7 +5,6 @@ class List{
     public List(){
         currentsong = head = null;
     }
-
     public void addSong(String songname){
         Song newsong = new Song(songname);
         if (head != null){
@@ -39,8 +38,13 @@ class List{
             }while(showsong != null);
         }
     }
-    public void playCurrentSong(){
-        if (currentsong != null) System.out.print("Reproduciendo: " + currentsong.getSongName() + "\n");
-        else System.out.print("La playlist esta vacia\n");
+    public String playCurrentSong(){
+        if (currentsong != null) {
+            System.out.print("Reproduciendo: " + currentsong.getSongName() + "\n");
+            return currentsong.getSongName();
+        } else {
+            System.out.print("La playlist esta vacia\n");
+            return null;
+        }
     }
 }   
