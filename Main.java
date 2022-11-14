@@ -2,12 +2,13 @@ import java.util.*;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.io.File;
-import java.swing.JOptionPane;
+//import java.swing.JOptionPane;
 import java.io.InputStream;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-
-
+//import sun.audio.AudioPlayer;
+//import sun.audio.AudioStream;
+import java.applet.*;
+import java.awt.*;
+import javax.swing.*;
 public class Main{
 
     public static void menu(){
@@ -21,7 +22,10 @@ public class Main{
     public static void main(String [] args){
         Scanner sc = new Scanner(System.in);
         List list = new List();
-        
+        JFrame musica = new Musica();
+        musica.pack();
+        musica.setVisible(true);
+
         while(true){
             menu();
             int opc = sc.nextInt();
@@ -43,7 +47,7 @@ public class Main{
             }
             else if (opc == 5) list.viewList();
             else if (opc == 6){
-                clip.start();
+               // clip.start();
             }
         } 
         
