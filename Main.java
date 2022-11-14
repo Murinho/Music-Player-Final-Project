@@ -19,13 +19,15 @@ public class Main{
         System.out.print("Pulsa 5 para ver toda la lista\n");
         System.out.print("Pulsa 6 para reproducir la cancion\n");
     }
-    public static void main(String [] args){
+    public static void main(String [] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
         Scanner sc = new Scanner(System.in);
         List list = new List();
         JFrame musica = new Musica();
+        // verything will be inside musica 
         musica.pack();
         musica.setVisible(true);
-
+        //* Just a comment to know how the player works*/
+        /* 
         while(true){
             menu();
             int opc = sc.nextInt();
@@ -49,7 +51,7 @@ public class Main{
             else if (opc == 6){
                // clip.start();
             }
-        } 
+        } */
         
     }
 }
