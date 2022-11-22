@@ -10,22 +10,38 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.*;
 
 
 /**
  *
  * @author andre
  */
+@SuppressWarnings("serial")
 public class Musica extends javax.swing.JFrame {
+    private int c = 0;
+    Timer t;
+    private JButton btn;
+    private JProgressBar pBar;
 
+    // 15 minutes in milliseconds
+    private final int waitingTime = 15 * 60 * 1000;// 900000 milliseconds
+
+    private final int delay = waitingTime / 100;// 9000 == 9 seconds
     /**
      * Creates new form Musica
      */
@@ -80,6 +96,7 @@ public class Musica extends javax.swing.JFrame {
         
                 jLabel1 = new JLabel();
                 jLabel1.setText(filePath);
+                
         ImageIcon im1[] = new ImageIcon[2];
         im1[0]= new ImageIcon(Musica.class.getResource("tocar.png"));
         ImageIcon im2 = new ImageIcon(Musica.class.getResource("7304545.png"));
@@ -92,7 +109,52 @@ public class Musica extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton(im5);
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel(im2);
-
+        jProgressBar1.setValue(0);
+        jProgressBar1.setStringPainted(true);
+        t = new Timer();
+        TimerTask timerTask = new TimerTask()
+        {
+            public void run() 
+            {
+                if (status.equals("play")) {
+                    ++c;
+                long songlength = clip.getMicrosecondLength();
+                songlength /= 1000000;
+                double d = (double)songlength;
+                d /= 100;
+                double e = (double)c;
+                e /= d;
+                int a = (int)e;
+                jProgressBar1.setValue(a);
+                }
+                
+            }
+        }; 
+        
+        t.scheduleAtFixedRate(timerTask, 0, 1000);
+   
+        jProgressBar1.addChangeListener(new ChangeListener() {
+            /* (non-Javadoc)
+             * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+             */
+            @Override
+            public void stateChanged(ChangeEvent e)
+            {
+                if(jProgressBar1.getValue() == 100)
+                {
+                   
+                    c = 0;
+                    list.goNextSong();
+                    try {
+                        resetAudioStream(list.playCurrentSong());
+                    } catch (final Exception ev) {
+                        // TODO Auto-generated catch block
+                        ev.printStackTrace();
+                    }                        
+                    jProgressBar1.setValue(c);// set the initial value of the progress bar to 0 again
+                }
+            }
+        });
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -194,6 +256,8 @@ public class Musica extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws UnsupportedAudioFileException, IOException, LineUnavailableException { 
         // prev song    
+        c=0;
+        jProgressBar1.setValue(c);
         stop();  
         list.goPrevSong();
         try {
@@ -206,7 +270,9 @@ public class Musica extends javax.swing.JFrame {
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) throws UnsupportedAudioFileException, IOException, LineUnavailableException{ 
-        // next song    
+        // next song  
+        c=0;
+        jProgressBar1.setValue(c);  
         stop();
         list.goNextSong();
         try {
